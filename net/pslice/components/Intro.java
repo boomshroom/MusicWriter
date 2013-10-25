@@ -1,6 +1,6 @@
 package net.pslice.components;
 
-import net.pslice.basics.Scales;
+import net.pslice.basics.*;
 import net.pslice.assembly.SongWriter;
 
 import java.util.ArrayList;
@@ -9,7 +9,6 @@ import java.util.Random;
 
 public class Intro {
 
-    private static int[] scale = Scales.cMajorScale;
     public static int[] bars = {
             2, 4, 4, 8
     };
@@ -20,11 +19,14 @@ public class Intro {
     final static Random rand = new Random();
 
     public static void generate(){
+        int[] scale = Scales.scale;
+
         int totalBars = bars[rand.nextInt(bars.length)];
         int totalBeats = totalBars * 32;
         int currentBeats = 0;
         List<Integer> sequence = new ArrayList<Integer>();
-        do {
+
+        while (currentBeats < totalBeats) {
             int note = scale[rand.nextInt(scale.length)];
             int length = noteLength[rand.nextInt(noteLength.length)];
             if (currentBeats + length <= totalBeats){
@@ -32,7 +34,7 @@ public class Intro {
                 sequence.add(length);
                 currentBeats = currentBeats + length;
             }
-        }  while (currentBeats < totalBeats);
+        }
         int[] ret = new int[sequence.size()];
         for(int i = 0;i < ret.length;i++)
             ret[i] = sequence.get(i);

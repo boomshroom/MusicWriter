@@ -6,8 +6,6 @@ public class Info {
     private static int[] timeSig;
     private static int[] keySig;
 
-    public static String songKey;
-
     public static void setTempo(){
         Info.tempo = new int[]{
                 0x00, 0xFF, 0x51, 0x03,
@@ -32,7 +30,8 @@ public class Info {
     }
 
     public static void setKeySig(String key){
-        Info.songKey = key;
+        Scales.setKey(key);
+        System.out.println("In the key of " + key + "...");
         int songKey = 0x00;
         if (key.equals("C"))
             songKey = 0x00;

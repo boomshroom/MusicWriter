@@ -11,7 +11,6 @@ public class Verse {
 
     private static boolean madeVerse = false;
 
-    private static int[] scale = Scales.cMajorScale;
     public static int[] bars = {
             8, 8, 16, 16, 16, 32
     };
@@ -27,6 +26,8 @@ public class Verse {
             SongWriter.noteSequenceFixedVelocity(ret, 127);
         }
         else {
+            int[] scale = Scales.scale;
+
             int totalBars = bars[rand.nextInt(bars.length)];
             int totalBeats = totalBars * 32;
             int currentBeats = 0;

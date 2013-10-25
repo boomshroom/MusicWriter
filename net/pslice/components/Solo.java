@@ -9,7 +9,6 @@ import java.util.Random;
 
 public class Solo {
 
-    private static int[] scale = Scales.cMajorScale;
     public static int[] bars = {
             4, 8, 16, 16
     };
@@ -20,6 +19,8 @@ public class Solo {
     final static Random rand = new Random();
 
     public static void generate(){
+        int[] scale = Scales.scale;
+
         int totalBars = bars[rand.nextInt(bars.length)];
         int totalBeats = totalBars * 32;
         int currentBeats = 0;

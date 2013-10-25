@@ -35,57 +35,57 @@ public class Song {
     }
 
     public static void generate() throws IOException {
-        int intros = 0;
-        int verses = 0;
-        int choruses = 0;
-        int bridges = 0;
-        int solos = 0;
-        int outros = 0;
+        int i = 0;  //# of intros (Will always end up as 1)
+        int v = 0;  //# of verses (Always at least one, usually is 3-4)
+        int c = 0;  //# of choruses (Should always be at least one, usually is 3-4)
+        int b = 0;  //# of bridges (Anywhere from 0-3 usually)
+        int s = 0;  //# of solos (Either 0 or 1)
+        int o = 0;  //# of outros (Will always end up as 1)
 
         SongComponent song = new SongComponent();
         song.setNextComponent("None");
 
-        while (outros != 1) {
-            if (intros == 0
+        while (o != 1) {
+            if (i == 0
                     && song.getNewComponent().equals("Intro")){
                 Intro.generate();
-                intros = intros + 1;
+                i = i + 1;
                 song.setNextComponent("Intro");
             }
-            else if (verses <= 3
+            else if (v <= 3
                     && song.getNewComponent().equals("Verse")){
                 Verse.generate();
-                verses = verses + 1;
+                v = v + 1;
                 song.setRandomComponent("Verse");
             }
-            else if (choruses <= 3
+            else if (c <= 3
                     && song.getNewComponent().equals("Chorus")){
                 Chorus.generate();
-                choruses = choruses + 1;
+                c = c + 1;
                 song.setRandomComponent("Chorus");
             }
-            else if (bridges <= 2
+            else if (b <= 2
                     && song.getNewComponent().equals("Bridge")){
                 Bridge.generate();
-                bridges = bridges + 1;
+                b = b + 1;
                 song.setRandomComponent("Bridge");
             }
-            else if (solos == 0
+            else if (s == 0
                     && song.getNewComponent().equals("Solo")){
                 Solo.generate();
-                solos = solos + 1;
+                s = s + 1;
                 song.setRandomComponent("Solo");
             }
-            else if (outros == 0
+            else if (o == 0
                     && song.getNewComponent().equals("Outro")){
                 Outro.generate();
-                outros = outros + 1;
+                o = o + 1;
             }
             else{
                 song.setRandomComponent("Generic");
             }
         }
         FileSaver.saveFile("Demo.mid");
-        Launcher.returnComponents(intros, verses, choruses, bridges, solos, outros);
+        Launcher.returnComponents(i, v, c, b, s, o);
     }
 }

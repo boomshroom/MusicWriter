@@ -9,7 +9,6 @@ import java.util.Random;
 
 public class Bridge {
 
-    private static int[] scale = Scales.cMajorScale;
     public static int[] bars = {
             2, 2, 4, 4
     };
@@ -20,6 +19,8 @@ public class Bridge {
     final static Random rand = new Random();
 
     public static void generate(){
+        int[] scale = Scales.scale;
+
         int totalBars = bars[rand.nextInt(bars.length)];
         int totalBeats = totalBars * 32;
         int currentBeats = 0;
