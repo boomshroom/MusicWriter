@@ -8,9 +8,7 @@ public class SongComponent {
 
     final static Random rand = new Random();
 
-    public SongComponent(){
-
-    }
+    public SongComponent(){}
 
     public void setNextComponent(String lastComponent){
         if (lastComponent.equals("None")){

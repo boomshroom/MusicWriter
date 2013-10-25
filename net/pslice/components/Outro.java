@@ -1,5 +1,6 @@
 package net.pslice.components;
 
+import net.pslice.basics.Chord;
 import net.pslice.basics.Scales;
 import net.pslice.assembly.SongWriter;
 
@@ -19,26 +20,22 @@ public class Outro {
     final static Random rand = new Random();
 
     public static void generate(){
-        int[] scale = Scales.scale;
-
         int totalBars = bars[rand.nextInt(bars.length)];
-        int totalBeats = totalBars * 32;
+        int totalBeats = totalBars * 16;
         int currentBeats = 0;
-        List<Integer> sequence = new ArrayList<Integer>();
-        do {
-            int note = scale[rand.nextInt(scale.length)];
-            int length = noteLength[rand.nextInt(noteLength.length)];
-            if (currentBeats + length <= totalBeats){
-                sequence.add(note);
-                sequence.add(length);
-                currentBeats = currentBeats + length;
-            }
-        }  while (currentBeats < totalBeats);
-        sequence.add(scale[1]);
-        sequence.add(64);
-        int[] ret = new int[sequence.size()];
-        for(int i = 0;i < ret.length;i++)
-            ret[i] = sequence.get(i);
-        SongWriter.noteSequenceFixedVelocity(ret, 127);
+        int lastChord= -1;
+
+        Chord chord = new Chord();
+
+        while (currentBeats < totalBeats){
+            chord.setRandomChord(lastChord);
+            int newChord = chord.getNewChord();
+            SongWriter.noteChord(newChord, 16, 127);
+            lastChord = newChord;
+            currentBeats = currentBeats + 8;
+        }
+
+        int finalNote = Chord.chordScale[0];
+        SongWriter.noteChord(finalNote, 32, 127);
     }
 }

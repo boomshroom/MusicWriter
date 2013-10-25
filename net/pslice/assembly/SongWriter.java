@@ -47,4 +47,15 @@ public class SongWriter {
             }
         }
     }
+
+    public static void noteChord(int baseNote, int duration, int velocity){
+        //currently will only play a power chord (1,5,8) since they're the easiest to work with
+        noteOn(0, baseNote, velocity);
+        noteOn(0, baseNote + 7, velocity);
+        noteOn(0, baseNote + 12, velocity);
+
+        noteOff(duration, baseNote);
+        noteOff(0, baseNote + 7);
+        noteOff(0, baseNote + 12);
+    }
 }
