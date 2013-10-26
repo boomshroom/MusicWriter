@@ -6,10 +6,16 @@ public class Info {
     private static int[] timeSig;
     private static int[] keySig;
 
+    public static boolean isVerbose;
+
+    public static void setVerbose(boolean args){
+        isVerbose = args;
+    }
+
     public static void setTempo(){
         Info.tempo = new int[]{
                 0x00, 0xFF, 0x51, 0x03,
-                0x0F, 0x42, 0x40
+                0x07, 0xA1, 0x20
         };
     }
     public static int[] getTempo(){

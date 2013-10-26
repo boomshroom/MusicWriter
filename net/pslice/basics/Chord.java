@@ -100,6 +100,9 @@ public class Chord {
             };
             newChord = nextChord[rand.nextInt(nextChord.length)];
         }
+        else if (lastChord == lowSeventh){
+            newChord = first;
+        }
     }
     public int getNewChord(){
         return newChord;

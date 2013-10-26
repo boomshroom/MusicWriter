@@ -52,19 +52,19 @@ public class Song {
                 i = i + 1;
                 song.setNextComponent("Intro");
             }
-            else if (v <= 3
+            else if (v <= 2
                     && song.getNewComponent().equals("Verse")){
                 Verse.generate();
                 v = v + 1;
                 song.setRandomComponent("Verse");
             }
-            else if (c <= 3
+            else if (c <= 2
                     && song.getNewComponent().equals("Chorus")){
                 Chorus.generate();
                 c = c + 1;
                 song.setRandomComponent("Chorus");
             }
-            else if (b <= 2
+            else if (b <= 1
                     && song.getNewComponent().equals("Bridge")){
                 Bridge.generate();
                 b = b + 1;
