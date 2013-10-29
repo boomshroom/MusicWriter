@@ -1,4 +1,4 @@
-package net.pslice.assembly;
+package net.pslice.song.assembly;
 
 import java.util.Random;
 
@@ -16,7 +16,7 @@ public class SongComponent {
             return;
         }
         if (lastComponent.equals("Intro")){
-            newComponent = "Verse";
+            newComponent = "Outro";
             return;
         }
     }

@@ -1,4 +1,4 @@
-package net.pslice.basics;
+package net.pslice.song.scales;
 
 public class Scales{
 
@@ -40,6 +40,7 @@ public class Scales{
     };
 
     public static int[] scale = {};
+    public static int[] noteScale = {};
 
     public static void setKey(String key){
         if (key.equals("A"))
@@ -66,5 +67,31 @@ public class Scales{
             scale = gMajorScale;
         else if (key.equals("G#"))
             scale = gSharpMajorScale;
+    }
+    public static void setChord(int chord){
+        if (chord % 12 == 9)
+            noteScale = aMajorScale;
+        else if (chord % 12 == 10)
+            noteScale = aSharpMajorScale;
+        else if (chord % 12 == 11)
+            noteScale = bMajorScale;
+        else if (chord % 12 == 0)
+            noteScale = cMajorScale;
+        else if (chord % 12 == 1)
+            noteScale = cSharpMajorScale;
+        else if (chord % 12 == 2)
+            noteScale = dMajorScale;
+        else if (chord % 12 == 3)
+            noteScale = dSharpMajorScale;
+        else if (chord % 12 == 4)
+            noteScale = eMajorScale;
+        else if (chord % 12 == 5)
+            noteScale = fMajorScale;
+        else if (chord % 12 == 6)
+            noteScale = fSharpMajorScale;
+        else if (chord % 12 == 7)
+            noteScale = gMajorScale;
+        else if (chord % 12 == 8)
+            noteScale = gSharpMajorScale;
     }
 }

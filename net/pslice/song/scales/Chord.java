@@ -1,17 +1,17 @@
-package net.pslice.basics;
+package net.pslice.song.scales;
+
+import net.pslice.song.scales.Scales;
 
 import java.util.Random;
 
 public class Chord {
 
     public static int[] chordScale = Scales.scale;
-    public int newChord;
+    public static int newChord;
 
     final static Random rand = new Random();
 
-    public Chord(){}
-
-    public void setRandomChord(int lastChord){
+    public static void setRandomChord(int lastChord){
         int first = chordScale[0];
         int second = chordScale[1];
         int third = chordScale[2];
@@ -104,7 +104,7 @@ public class Chord {
             newChord = first;
         }
     }
-    public int getNewChord(){
+    public static int getNewChord(){
         return newChord;
     }
 }
