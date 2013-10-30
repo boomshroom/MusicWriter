@@ -1,12 +1,9 @@
 package net.pslice.song.scales;
 
-import net.pslice.song.scales.Scales;
-
 import java.util.Random;
 
-public class Melody {
+public class Melody extends Scales{
 
-    public static int[] noteScale = Scales.noteScale;
     public static int newNote;
 
     final static Random rand = new Random();
@@ -23,10 +20,16 @@ public class Melody {
 
         int lowSeventh = first - 1;
 
-        if (lastNote == -1)
-            newNote = first;
+        if (lastNote == -1){
+            int[] nextNote = {
+                    first, first,
+                    octave, octave,
+                    fifth
+            };
+        newNote = nextNote[rand.nextInt(nextNote.length)];
+        }
         else if (lastNote == first || lastNote == octave){
-            int[] nextChord = {
+            int[] nextNote = {
                     fifth, fifth, fifth, fifth,
                     fourth, fourth, fourth,
                     third, third,
@@ -35,7 +38,7 @@ public class Melody {
                     sixth,
                     octave
             };
-            newNote = nextChord[rand.nextInt(nextChord.length)];
+            newNote = nextNote[rand.nextInt(nextNote.length)];
         }
         else if (lastNote == second){
             int[] nextChord = {

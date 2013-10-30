@@ -27,7 +27,7 @@ public class Song {
     }
 
     public static void setTempo(){
-        Song.tempo = new int[]{
+        tempo = new int[]{
                 0x00, 0xFF, 0x51, 0x03,
                 0x07, 0xA1, 0x20
         };
@@ -37,7 +37,7 @@ public class Song {
     }
 
     public static void setTimeSig(){
-        Song.timeSig = new int[]{
+        timeSig = new int[]{
                 0x00, 0xFF, 0x58, 0x04,
                 0x04,
                 0x02,
@@ -56,7 +56,7 @@ public class Song {
         int songKey = 0x00;
         if (key.equals("C"))
             songKey = 0x00;
-        Song.keySig = new int[]{
+        keySig = new int[]{
                 0x00, 0xFF, 0x59, 0x02,
                 songKey,
                 0x00
@@ -77,9 +77,9 @@ public class Song {
         song.setNextComponent("None");
 
         int i = 0;  //# of intros (Will always end up as 1)
-        int v = 0;  //# of verses (Always at least one, usually is 3-4)
-        int c = 0;  //# of choruses (Should always be at least one, usually is 3-4)
-        int b = 0;  //# of bridges (Anywhere from 0-3 usually)
+        int v = 0;  //# of verses (Always at least one, usually is 2-3)
+        int c = 0;  //# of choruses (Should always be at least one, usually is 2-3)
+        int b = 0;  //# of bridges (Anywhere from 0-2 usually)
         int s = 0;  //# of solos (Either 0 or 1)
         int o = 0;  //# of outros (Will always end up as 1)
 

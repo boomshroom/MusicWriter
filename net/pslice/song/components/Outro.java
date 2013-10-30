@@ -3,6 +3,7 @@ package net.pslice.song.components;
 import net.pslice.song.Song;
 import net.pslice.song.assembly.Writer;
 import net.pslice.song.scales.Chord;
+import net.pslice.song.scales.Melody;
 import net.pslice.song.scales.Scales;
 
 import java.util.ArrayList;
@@ -68,6 +69,7 @@ public class Outro extends Song {
         int[] noteLength = {
                 8, 8, 16, 16, 16, 32
         };
+        int lastNote= -1;
 
         for(int i = 0;i < backgroundInfo.length;i+=2){
             int currentBeats = 0;
@@ -76,7 +78,9 @@ public class Outro extends Song {
 
             while (currentBeats < chordLength){
                 Scales.setChord(chord);
-                int note = Scales.noteScale[rand.nextInt(Scales.noteScale.length)];
+                Melody.setRandomNote(lastNote);
+
+                int note = Melody.getNewNote();
 
                 int length = noteLength[rand.nextInt(noteLength.length)];
 
@@ -85,8 +89,10 @@ public class Outro extends Song {
 
                 Writer.noteOn(0, note, 127, 1);
                 Writer.noteOff(length, note, 1);
+                lastNote = note;
                 currentBeats = currentBeats + length;
             }
+            lastNote= -1;
         }
         int finalNote = Chord.chordScale[0];
         Writer.noteOn(0, finalNote, 127, 1);

@@ -2,6 +2,7 @@ package net.pslice.song.components;
 
 import net.pslice.song.Song;
 import net.pslice.song.scales.Chord;
+import net.pslice.song.scales.Melody;
 import net.pslice.song.scales.Scales;
 import net.pslice.song.assembly.Writer;
 
@@ -63,6 +64,7 @@ public class Verse extends Song {
         int[] noteLength = {
                 8, 8, 16, 16, 16, 32
         };
+        int lastNote= -1;
 
         List<Integer> sequence = new ArrayList<Integer>();
 
@@ -73,7 +75,9 @@ public class Verse extends Song {
 
             while (currentBeats < chordLength){
                 Scales.setChord(chord);
-                int note = Scales.noteScale[rand.nextInt(Scales.noteScale.length)];
+                Melody.setRandomNote(lastNote);
+
+                int note = Melody.getNewNote();
 
                 int length = noteLength[rand.nextInt(noteLength.length)];
 
@@ -85,8 +89,10 @@ public class Verse extends Song {
 
                 Writer.noteOn(0, note, 127, 1);
                 Writer.noteOff(length, note, 1);
+                lastNote = note;
                 currentBeats = currentBeats + length;
             }
+            lastNote= -1;
             melodyInfo = new int[sequence.size()];
             for(int q = 0;q < melodyInfo.length;q++)
                 melodyInfo[q] = sequence.get(q);

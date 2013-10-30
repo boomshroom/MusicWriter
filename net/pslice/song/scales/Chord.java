@@ -1,10 +1,8 @@
 package net.pslice.song.scales;
 
-import net.pslice.song.scales.Scales;
-
 import java.util.Random;
 
-public class Chord {
+public class Chord extends Scales{
 
     public static int[] chordScale = Scales.scale;
     public static int newChord;
