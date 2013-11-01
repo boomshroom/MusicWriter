@@ -8,21 +8,23 @@ public class SongComponent {
 
     final static Random rand = new Random();
 
-    public SongComponent(){}
+    public SongComponent() {
+        setNextComponent("None");
+    }
 
-    public void setNextComponent(String lastComponent){
-        if (lastComponent.equals("None")){
+    public void setNextComponent(String lastComponent) {
+        if (lastComponent.equals("None")) {
             newComponent = "Intro";
             return;
         }
-        if (lastComponent.equals("Intro")){
+        if (lastComponent.equals("Intro")) {
             newComponent = "Outro";
             return;
         }
     }
 
-    public void setRandomComponent(String lastComponent){
-        if (lastComponent.equals("Verse")){
+    public void setRandomComponent(String lastComponent) {
+        if (lastComponent.equals("Verse")) {
             String[] nextComponent = {
                     "Chorus", "Chorus", "Chorus", "Chorus",
                     "Verse", "Verse",
@@ -31,7 +33,7 @@ public class SongComponent {
             };
             newComponent = nextComponent[rand.nextInt(nextComponent.length)];
         }
-        if (lastComponent.equals("Chorus")){
+        if (lastComponent.equals("Chorus")) {
             String[] nextComponent = {
                     "Verse", "Verse", "Verse",
                     "Bridge", "Bridge",
@@ -41,7 +43,7 @@ public class SongComponent {
             };
             newComponent = nextComponent[rand.nextInt(nextComponent.length)];
         }
-        if (lastComponent.equals("Bridge")){
+        if (lastComponent.equals("Bridge")) {
             String[] nextComponent = {
                     "Chorus", "Chorus", "Chorus",
                     "Verse", "Verse", "Verse",
@@ -49,14 +51,14 @@ public class SongComponent {
             };
             newComponent = nextComponent[rand.nextInt(nextComponent.length)];
         }
-        if (lastComponent.equals("Solo")){
+        if (lastComponent.equals("Solo")) {
             String[] nextComponent = {
                     "Chorus", "Chorus", "Chorus",
                     "Verse", "Verse", "Verse"
             };
             newComponent = nextComponent[rand.nextInt(nextComponent.length)];
         }
-        if (lastComponent.equals("Generic")){
+        if (lastComponent.equals("Generic")) {
             String[] nextComponent = {
                     "Verse", "Verse", "Verse", "Verse",
                     "Chorus", "Chorus",
@@ -67,7 +69,7 @@ public class SongComponent {
         }
     }
 
-    public String getNewComponent(){
+    public String getNewComponent() {
         return newComponent;
     }
 }

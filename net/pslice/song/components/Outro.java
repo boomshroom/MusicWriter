@@ -22,10 +22,10 @@ public class Outro extends Song {
 
     public static int[] backgroundInfo;
 
-    public static void generate(){
+    public static void generate() {
         addBackground();
 
-        if (isVerbose){
+        if (isVerbose) {
             System.out.println("Generated Outro (" + totalBars + " bars)");
             System.out.println("==============");
         }
@@ -33,16 +33,16 @@ public class Outro extends Song {
 
     }
 
-    public static void addBackground(){
+    public static void addBackground() {
         int[] noteLength = {
                 32, 32, 32, 64, 64, 64, 64
         };
         int currentBeats = 0;
-        int lastChord= -1;
+        int lastChord = -1;
 
         List<Integer> sequence = new ArrayList<Integer>();
 
-        while (currentBeats < totalBeats){
+        while (currentBeats < totalBeats) {
             int length = noteLength[rand.nextInt(noteLength.length)];
 
             if (currentBeats + length > totalBeats)
@@ -58,25 +58,25 @@ public class Outro extends Song {
             currentBeats = currentBeats + length;
         }
         backgroundInfo = new int[sequence.size()];
-        for(int i = 0;i < backgroundInfo.length;i++)
+        for (int i = 0; i < backgroundInfo.length; i++)
             backgroundInfo[i] = sequence.get(i);
         int finalNote = Chord.chordScale[0];
         Writer.noteChord(finalNote, 64, 127, 0);
         addMelody();
     }
 
-    public static void addMelody(){
+    public static void addMelody() {
         int[] noteLength = {
                 8, 8, 16, 16, 16, 32
         };
-        int lastNote= -1;
+        int lastNote = -1;
 
-        for(int i = 0;i < backgroundInfo.length;i+=2){
+        for (int i = 0; i < backgroundInfo.length; i += 2) {
             int currentBeats = 0;
             int chord = backgroundInfo[i];
-            int chordLength = backgroundInfo[i+1];
+            int chordLength = backgroundInfo[i + 1];
 
-            while (currentBeats < chordLength){
+            while (currentBeats < chordLength) {
                 Scales.setChord(chord);
                 Melody.setRandomNote(lastNote);
 
@@ -92,7 +92,7 @@ public class Outro extends Song {
                 lastNote = note;
                 currentBeats = currentBeats + length;
             }
-            lastNote= -1;
+            lastNote = -1;
         }
         int finalNote = Chord.chordScale[0];
         Writer.noteOn(0, finalNote, 127, 1);

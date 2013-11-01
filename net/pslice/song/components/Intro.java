@@ -2,6 +2,7 @@ package net.pslice.song.components;
 
 import net.pslice.song.Song;
 import net.pslice.song.assembly.Writer;
+import net.pslice.song.scales.Bass;
 import net.pslice.song.scales.Chord;
 import net.pslice.song.scales.Melody;
 import net.pslice.song.scales.Scales;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Intro extends Song{
+public class Intro extends Song {
 
     public static int[] bars = {
             2, 4, 4, 8
@@ -23,25 +24,25 @@ public class Intro extends Song{
 
     public static int[] backgroundInfo;
 
-    public static void generate(){
+    public static void generate() {
         addBackground();
 
-        if (isVerbose){
+        if (isVerbose) {
             System.out.println("Generated Intro (" + totalBars + " bars)");
             System.out.println("==============");
         }
     }
 
-    public static void addBackground(){
+    public static void addBackground() {
         int[] noteLength = {
                 32, 32, 32, 64, 64, 64, 64
         };
         int currentBeats = 0;
-        int lastChord= -1;
+        int lastChord = -1;
 
         List<Integer> sequence = new ArrayList<Integer>();
 
-        while (currentBeats < totalBeats){
+        while (currentBeats < totalBeats) {
             int length = noteLength[rand.nextInt(noteLength.length)];
 
             if (currentBeats + length > totalBeats)
@@ -57,23 +58,24 @@ public class Intro extends Song{
             currentBeats = currentBeats + length;
         }
         backgroundInfo = new int[sequence.size()];
-        for(int i = 0;i < backgroundInfo.length;i++)
+        for (int i = 0; i < backgroundInfo.length; i++)
             backgroundInfo[i] = sequence.get(i);
         addMelody();
+        //addBass();
     }
 
-    public static void addMelody(){
+    public static void addMelody() {
         int[] noteLength = {
                 8, 8, 16, 16, 16, 32
         };
-        int lastNote= -1;
+        int lastNote = -1;
 
-        for(int i = 0;i < backgroundInfo.length;i+=2){
+        for (int i = 0; i < backgroundInfo.length; i += 2) {
             int currentBeats = 0;
             int chord = backgroundInfo[i];
-            int chordLength = backgroundInfo[i+1];
+            int chordLength = backgroundInfo[i + 1];
 
-            while (currentBeats < chordLength){
+            while (currentBeats < chordLength) {
                 Scales.setChord(chord);
                 Melody.setRandomNote(lastNote);
 
@@ -89,54 +91,38 @@ public class Intro extends Song{
                 lastNote = note;
                 currentBeats = currentBeats + length;
             }
-            lastNote= -1;
+            lastNote = -1;
         }
     }
-    public static void addBass(){
-        Writer.noteChord(60, 64, 127, 2);
-    }
-}
 
+    public static void addBass() {
+        int[] noteLength = {
+                8, 16, 16, 16
+        };
+        int lastNote = -1;
 
-/*
-**The following code is used to create standard-length chords following specific random structure
-        int totalBars = bars[rand.nextInt(bars.length)];
-        int totalBeats = totalBars * 16;
-        int currentBeats = 0;
-        int lastChord= -1;
+        for (int i = 0; i < backgroundInfo.length; i += 2) {
+            int currentBeats = 0;
+            int chord = backgroundInfo[i];
+            int chordLength = backgroundInfo[i + 1];
 
-        Chord chord = new Chord();
+            while (currentBeats < chordLength) {
+                Scales.setChord(chord);
+                Bass.setRandomNote(lastNote);
 
-        while (currentBeats < totalBeats){
-            chord.setRandomNote(lastChord);
-            int newNote = chord.getNewNote();
-            Writer.noteChord(newNote, 16, 127);
-            lastChord = newNote;
-            currentBeats = currentBeats + 8;
-        }
+                int note = Bass.getNewNote();
 
+                int length = noteLength[rand.nextInt(noteLength.length)];
 
+                if (currentBeats + length > chordLength)
+                    length = chordLength - currentBeats;
 
-**The following code is used to generate (semi)melodic sequences rather than chord patterns.
-    int[] noteScale = Scales.noteScale;
-
-        int totalBars = bars[rand.nextInt(bars.length)];
-        int totalBeats = totalBars * 32;
-        int currentBeats = 0;
-        List<Integer> sequence = new ArrayList<Integer>();
-
-        while (currentBeats < totalBeats) {
-            int note = noteScale[rand.nextInt(noteScale.length)];
-            int length = noteLength[rand.nextInt(noteLength.length)];
-            if (currentBeats + length <= totalBeats){
-                //sequence.add(note);
-                //sequence.add(length);
-                Writer.noteChord(note, length, 127);
+                Writer.noteOn(0, note - 24, 90, 2);
+                Writer.noteOff(length, note - 24, 2);
+                lastNote = note;
                 currentBeats = currentBeats + length;
             }
+            lastNote = -1;
         }
-        //int[] ret = new int[sequence.size()];
-        //for(int i = 0;i < ret.length;i++)
-            //ret[i] = sequence.get(i);
-        //Writer.noteSequenceFixedVelocity(ret, 127);
-        */
+    }
+}

@@ -2,14 +2,14 @@ package net.pslice.song.scales;
 
 import java.util.Random;
 
-public class Chord extends Scales{
+public class Chord extends Scales {
 
     public static int[] chordScale = Scales.scale;
     public static int newChord;
 
     final static Random rand = new Random();
 
-    public static void setRandomChord(int lastChord){
+    public static void setRandomChord(int lastChord) {
         int first = chordScale[0];
         int second = chordScale[1];
         int third = chordScale[2];
@@ -23,7 +23,7 @@ public class Chord extends Scales{
 
         if (lastChord == -1)
             newChord = first;
-        else if (lastChord == first || lastChord == octave){
+        else if (lastChord == first || lastChord == octave) {
             int[] nextChord = {
                     fifth, fifth, fifth, fifth,
                     fourth, fourth, fourth,
@@ -34,8 +34,7 @@ public class Chord extends Scales{
                     octave
             };
             newChord = nextChord[rand.nextInt(nextChord.length)];
-        }
-        else if (lastChord == second){
+        } else if (lastChord == second) {
             int[] nextChord = {
                     fifth, fifth, fifth,
                     fourth, fourth,
@@ -45,8 +44,7 @@ public class Chord extends Scales{
                     lowSeventh
             };
             newChord = nextChord[rand.nextInt(nextChord.length)];
-        }
-        else if (lastChord == third){
+        } else if (lastChord == third) {
             int[] nextChord = {
                     first, first,
                     fifth, fifth,
@@ -54,8 +52,7 @@ public class Chord extends Scales{
                     second
             };
             newChord = nextChord[rand.nextInt(nextChord.length)];
-        }
-        else if (lastChord == fourth){
+        } else if (lastChord == fourth) {
             int[] nextChord = {
                     fifth, fifth, fifth,
                     second, second, second,
@@ -66,8 +63,7 @@ public class Chord extends Scales{
                     octave
             };
             newChord = nextChord[rand.nextInt(nextChord.length)];
-        }
-        else if (lastChord == fifth){
+        } else if (lastChord == fifth) {
             int[] nextChord = {
                     first, first, first, first,
                     fourth, fourth, fourth,
@@ -78,8 +74,7 @@ public class Chord extends Scales{
                     sixth
             };
             newChord = nextChord[rand.nextInt(nextChord.length)];
-        }
-        else if (lastChord == sixth){
+        } else if (lastChord == sixth) {
             int[] nextChord = {
                     fourth, fourth, fourth,
                     fifth, fifth,
@@ -87,8 +82,7 @@ public class Chord extends Scales{
                     second,
             };
             newChord = nextChord[rand.nextInt(nextChord.length)];
-        }
-        else if (lastChord == seventh){
+        } else if (lastChord == seventh) {
             int[] nextChord = {
                     octave, octave,
                     second, second,
@@ -97,12 +91,12 @@ public class Chord extends Scales{
                     first
             };
             newChord = nextChord[rand.nextInt(nextChord.length)];
-        }
-        else if (lastChord == lowSeventh){
+        } else if (lastChord == lowSeventh) {
             newChord = first;
         }
     }
-    public static int getNewChord(){
+
+    public static int getNewChord() {
         return newChord;
     }
 }

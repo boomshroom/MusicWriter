@@ -2,14 +2,15 @@ package net.pslice.song.assembly;
 
 import net.pslice.song.Song;
 
-import java.io.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
-public class FileSaver extends Writer{
+public class FileSaver extends Writer {
 
     protected static final int[] header = new int[]{
             0x4d, 0x54, 0x68, 0x64, 0x00, 0x00, 0x00, 0x06,
             0x00, 0x01,
-            0x00, 0x02,
+            0x00, 0x03,
             0x00, 0x10,
     };
     protected static final int[] trackHeader = new int[]{
@@ -43,7 +44,7 @@ public class FileSaver extends Writer{
         fos.write(convertToByte(Song.getKeySig()));
         fos.write(convertToByte(Song.getTimeSig()));
 
-        for (int i = 0; i < songBackground.size(); i++){
+        for (int i = 0; i < songBackground.size(); i++) {
             fos.write(convertToByte(songBackground.elementAt(i)));
         }
         fos.write(convertToByte(footer));
@@ -65,11 +66,10 @@ public class FileSaver extends Writer{
         fos.write(convertToByte(Song.getKeySig()));
         fos.write(convertToByte(Song.getTimeSig()));
 
-        for (int i = 0; i < songMelody.size(); i++){
+        for (int i = 0; i < songMelody.size(); i++) {
             fos.write(convertToByte(songMelody.elementAt(i)));
         }
         fos.write(convertToByte(footer));
-
 
 
         //Bass track remains empty for now, I'll add it in later...
@@ -90,7 +90,7 @@ public class FileSaver extends Writer{
         fos.write(convertToByte(Song.getKeySig()));
         fos.write(convertToByte(Song.getTimeSig()));
 
-        for (int i = 0; i < songBass.size(); i++){
+        for (int i = 0; i < songBass.size(); i++) {
             fos.write(convertToByte(songBass.elementAt(i)));
         }
         fos.write(convertToByte(footer));

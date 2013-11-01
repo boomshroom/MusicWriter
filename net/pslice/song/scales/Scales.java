@@ -1,6 +1,6 @@
 package net.pslice.song.scales;
 
-public class Scales{
+public class Scales {
 
     public static int[] cMajorScale = {
             48, 50, 52, 53, 55, 57, 59, 60
@@ -42,33 +42,34 @@ public class Scales{
     public static int[] scale = {};
     public static int[] noteScale = {};
 
-    public static void setKey(String key){
+    public static void setKey(String key) {
         if (key.equals("A"))
             scale = aMajorScale;
-        else if (key.equals("A#"))
+        else if (key.equals("A#/Bb"))
             scale = aSharpMajorScale;
         else if (key.equals("B"))
             scale = bMajorScale;
         else if (key.equals("C"))
             scale = cMajorScale;
-        else if (key.equals("C#"))
+        else if (key.equals("C#/Db"))
             scale = cSharpMajorScale;
         else if (key.equals("D"))
             scale = dMajorScale;
-        else if (key.equals("D#"))
+        else if (key.equals("D#/Eb"))
             scale = dSharpMajorScale;
         else if (key.equals("E"))
             scale = eMajorScale;
         else if (key.equals("F"))
             scale = fMajorScale;
-        else if (key.equals("F#"))
+        else if (key.equals("F#/Gb"))
             scale = fSharpMajorScale;
         else if (key.equals("G"))
             scale = gMajorScale;
-        else if (key.equals("G#"))
+        else if (key.equals("G#/Ab"))
             scale = gSharpMajorScale;
     }
-    public static void setChord(int chord){
+
+    public static void setChord(int chord) {
         if (chord % 12 == 9)
             noteScale = aMajorScale;
         else if (chord % 12 == 10)

@@ -7,14 +7,13 @@ import net.pslice.song.components.*;
 import net.pslice.song.scales.Scales;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Vector;
 
 public class Song {
 
     public static Vector<int[]> songBackground;
     public static Vector<int[]> songMelody;
     public static Vector<int[]> songBass;
-    public static SongComponent song;
 
     private static int[] tempo;
     private static int[] timeSig;
@@ -22,21 +21,24 @@ public class Song {
 
     public static boolean isVerbose;
 
-    public static void setVerbose(boolean args){
+    private static String title;
+
+    public static void setVerbose(boolean args) {
         isVerbose = args;
     }
 
-    public static void setTempo(){
+    public static void setTempo() {
         tempo = new int[]{
                 0x00, 0xFF, 0x51, 0x03,
                 0x07, 0xA1, 0x20
         };
     }
-    public static int[] getTempo(){
+
+    public static int[] getTempo() {
         return tempo;
     }
 
-    public static void setTimeSig(){
+    public static void setTimeSig() {
         timeSig = new int[]{
                 0x00, 0xFF, 0x58, 0x04,
                 0x04,
@@ -45,11 +47,12 @@ public class Song {
                 0x08
         };
     }
-    public static int[] getTimeSig(){
+
+    public static int[] getTimeSig() {
         return timeSig;
     }
 
-    public static void setKeySig(String key){
+    public static void setKeySig(String key) {
         Scales.setKey(key);
         if (isVerbose)
             System.out.println("In the key of " + key + "...");
@@ -62,8 +65,13 @@ public class Song {
                 0x00
         };
     }
-    public static int[] getKeySig(){
+
+    public static int[] getKeySig() {
         return keySig;
+    }
+
+    public static void setTitle(String title){
+        Song.title = title;
     }
 
     public static void generate() throws IOException {
@@ -71,10 +79,10 @@ public class Song {
         songMelody = new Vector<int[]>();
         songBass = new Vector<int[]>();
 
-        song = new SongComponent();
 
-        Writer.setProg(0, 0, 0);
-        song.setNextComponent("None");
+        Writer.setProg(Launcher.bgi, Launcher.mdi, Launcher.bsi);
+
+        SongComponent song = new SongComponent();
 
         int i = 0;  //# of intros (Will always end up as 1)
         int v = 0;  //# of verses (Always at least one, usually is 2-3)
@@ -85,45 +93,39 @@ public class Song {
 
         while (o != 1) {
 
-            if (song.getNewComponent().equals("Intro") && (i == 0)){
+            if (song.getNewComponent().equals("Intro") && (i == 0)) {
                 Intro.generate();
                 i += 1;
                 song.setNextComponent("Intro");
-            }
-            else if (song.getNewComponent().equals("Verse") && (v <=2)){
+            } else if (song.getNewComponent().equals("Verse") && (v <= 2)) {
                 if (v == 0)
                     Verse.generate();
                 else
                     Verse.add();
                 v += 1;
                 song.setRandomComponent("Verse");
-            }
-            else if (song.getNewComponent().equals("Chorus") && (c <= 2)){
+            } else if (song.getNewComponent().equals("Chorus") && (c <= 2) && (v >= 1)) {
                 if (c == 0)
                     Chorus.generate();
                 else
                     Chorus.add();
                 c += 1;
                 song.setRandomComponent("Chorus");
-            }
-            else if (song.getNewComponent().equals("Bridge") && (b <= 2)){
+            } else if (song.getNewComponent().equals("Bridge") && (b <= 2)) {
                 Bridge.generate();
                 b += 1;
                 song.setRandomComponent("Bridge");
-            }
-            else if (song.getNewComponent().equals("Solo") && (s == 0) && (c >= 1)){
+            } else if (song.getNewComponent().equals("Solo") && (s == 0) && (c >= 1)) {
                 Solo.generate();
                 s += 1;
                 song.setRandomComponent("Solo");
-            }
-            else if (song.getNewComponent().equals("Outro") && o == 0 && c > 1){
+            } else if (song.getNewComponent().equals("Outro") && o == 0 && c >= 1) {
                 Outro.generate();
                 o += 1;
-            }
-            else
+            } else
                 song.setRandomComponent("Generic");
         }
-        FileSaver.saveFile("Demo.mid");
+        FileSaver.saveFile(title + ".mid");
         Launcher.returnComponents(i, v, c, b, s, o);
     }
 }
